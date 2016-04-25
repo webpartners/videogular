@@ -69,7 +69,7 @@
  */
 angular.module("com.2fdevs.videogular")
     .controller("vgController",
-    ['$scope', '$window', 'vgConfigLoader', 'vgFullscreen', 'VG_UTILS', 'VG_STATES', 'VG_VOLUME_KEY', function ($scope, $window, vgConfigLoader, vgFullscreen, VG_UTILS, VG_STATES, VG_VOLUME_KEY) {
+    ['$scope', '$window', 'vgConfigLoader', 'vgFullscreen', 'VG_UTILS', 'VG_STATES', 'VG_VOLUME_KEY', '$rootScope', function ($scope, $window, vgConfigLoader, vgFullscreen, VG_UTILS, VG_STATES, VG_VOLUME_KEY, $rootScope) {
         var currentTheme = null;
         var isFullScreenPressed = false;
         var isMetaDataLoaded = false;
@@ -364,11 +364,13 @@ angular.module("com.2fdevs.videogular")
         this.play = function () {
             this.mediaElement[0].play();
             this.setState(VG_STATES.PLAY);
+            $rootScope.$broadcast('video:play');
         };
 
         this.pause = function () {
             this.mediaElement[0].pause();
             this.setState(VG_STATES.PAUSE);
+            $rootScope.$broadcast('video:pause');
         };
 
         this.stop = function () {
